@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Docente</title>
+  <link rel="stylesheet" href="/css/Profesor/sidebar.css" />
+</head>
+<body th:data-username="${nombreUsuario}" th:data-userid="${userId}" th:data-csrf-token="${_csrf.token}">
+  <!-- Sidebar fijo -->
+  <aside id="sidebar" class="sidebar"></aside>
+
+  <!-- Botón para colapsar/expandir -->
+  <button id="sidebarToggle" class="sidebar-toggle" aria-label="Abrir/Cerrar menú">☰</button>
+
+  <!-- Contenedor principal donde se inyecta el contenido (Lo inyecto, o separo por modulos)-->
+  <main id="mainContent" class="main-content">
+    <div class="glass-effect">
+      <h1>Bienvenido al Panel Docente</h1>
+      <p>Seleccione una opción del menú para comenzar.</p>
+    </div>
+  </main>
+
+    <!-- Script modular -->
+  <script type="module" src="/js/Profesor/main.js" defer></script>
+
+
+</html>

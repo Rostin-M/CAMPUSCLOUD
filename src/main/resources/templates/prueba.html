@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prueba de Cursos</title>
+</head>
+<body>
+  <h1>Prueba de Cursos</h1>
+  <button onclick="cargarCursos()">Cargar Cursos</button>
+  <pre id="resultado"></pre>
+  <script>
+    function cargarCursos() {
+      fetch('/prueba/cursos')
+        .then(r => r.json())
+        .then(data => {
+          document.getElementById('resultado').textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(e => {
+          document.getElementById('resultado').textContent = 'Error: ' + e;
+        });
+    }
+  </script>
+</body>
+</html>
