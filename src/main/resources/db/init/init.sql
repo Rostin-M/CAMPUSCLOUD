@@ -202,14 +202,7 @@ INSERT INTO roles (role_name) VALUES
 -- profesores -> profepass / profepass2
 -- estudiantes -> studentpass
 INSERT INTO users (institutional_id, email, password, first_name, last_name) VALUES
-('ADM001', 'admin@admin.edu', '$2b$10$PMf1GfBT99QpElEdDXioyOqD608WoLaU0.p/9ienUOJhsm9903xhO', 'Carlos', 'Martínez'),
-
-('PROF202', 'martha.gomez@udemedellin.edu.co', '$2b$10$YkYs88RRi8JDxj3wdAC/suzl4N8flH87427elDmVAPHgP1705VPLe', 'Martha', 'Gómez'),
-('PROF145', 'jairo.velez@udemedellin.edu.co', '$2b$10$SrS03adj.syQdA0r/ciIlevqOqp.NcFgCm1Qjb4p5t0wakMX3Je/G', 'Jairo', 'Vélez'),
-
-('EST1234', 'ana.toro@soyudemedellin.edu.co', '$2b$10$g9sqcs95N.Cv8OTDRS04rO8ws0W2kKCwOe10UhfH3HdnrLqg6Lsua', 'Ana', 'Toro'),
-('EST5678', 'camilo.giraldo@soyudemedellin.edu.co', '$2b$10$g9sqcs95N.Cv8OTDRS04rO8ws0W2kKCwOe10UhfH3HdnrLqg6Lsua', 'Camilo', 'Giraldo'),
-('EST9012', 'diana.morales@soyudemedellin.edu.co', '$2b$10$g9sqcs95N.Cv8OTDRS04rO8ws0W2kKCwOe10UhfH3HdnrLqg6Lsua', 'Diana', 'Morales');
+('institutional_id', 'email', 'password', 'first_name', 'last_name');
 
 -- Asignar roles a usuarios
 INSERT INTO user_roles (user_id, role_id) VALUES
