@@ -1,0 +1,23 @@
+target/
+*.class
+
+# Maven wrapper (regenerate with mvn wrapper:wrapper if needed)
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

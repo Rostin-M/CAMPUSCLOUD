@@ -28,9 +28,9 @@ services:
   db:
     image: postgres:16
     environment:
-      POSTGRES_DB: campuscloud
-      POSTGRES_USER: campuscloud
-      POSTGRES_PASSWORD: campuscloud
+      POSTGRES_DB: ${POSTGRES_DB:-campuscloud}
+      POSTGRES_USER: ${POSTGRES_USER:-campuscloud}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-campuscloud}
     ports:
       - "5432:5432"
     volumes:
@@ -42,9 +42,9 @@ services:
       - db
       - logstash
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://ep-soft-darkness-a4q2zq2r-pooler.us-east-1.aws.neon.tech:5432/CAMPUSCLOUD?sslmode=require
-      SPRING_DATASOURCE_USERNAME: CAMPUSCLOUD_owner
-      SPRING_DATASOURCE_PASSWORD: ***REMOVED***
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL:-jdbc:postgresql://db:5432/campuscloud}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME:-campuscloud}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:-campuscloud}
     ports:
       - "8080:8080"
 
