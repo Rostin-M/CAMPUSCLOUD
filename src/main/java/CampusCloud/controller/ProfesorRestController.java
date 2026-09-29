@@ -2,7 +2,6 @@ package CampusCloud.controller;
 
 import CampusCloud.model.User;
 import CampusCloud.model.AcademicEvent;
-import CampusCloud.model.Role;
 import CampusCloud.repository.AcademicEventRepository;
 import CampusCloud.repository.CourseRepository;
 import CampusCloud.repository.UserRepository;

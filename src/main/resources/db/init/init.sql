@@ -53,7 +53,10 @@ CREATE TABLE IF NOT EXISTS academic_events (
     event_type VARCHAR(20) NOT NULL CHECK (event_type IN ('tarea', 'examen', 'clase')),
     due_date TIMESTAMP NOT NULL,
     created_by INT REFERENCES users(user_id) ON DELETE SET NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    start_event VARCHAR(50),
+    end_event VARCHAR(50),
+    location VARCHAR(255)
 );
 
 -- 7. Contenido de cursos (depende de courses)
@@ -163,10 +166,10 @@ CREATE TABLE IF NOT EXISTS user_roles (
 );
 
 -- Índices para optimización
-CREATE INDEX idx_courses_created_by ON courses(created_by);
-CREATE INDEX idx_events_due_date ON academic_events(due_date);
-CREATE INDEX idx_submissions_grade ON submissions(grade);
-CREATE INDEX idx_attendance_date ON attendance(date);
+CREATE INDEX IF NOT EXISTS idx_courses_created_by ON courses(created_by);
+CREATE INDEX IF NOT EXISTS idx_events_due_date ON academic_events(due_date);
+CREATE INDEX IF NOT EXISTS idx_submissions_grade ON submissions(grade);
+CREATE INDEX IF NOT EXISTS idx_attendance_date ON attendance(date);
 
 -- Poblando la base de datos
 
