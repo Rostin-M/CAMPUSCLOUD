@@ -122,7 +122,7 @@ Requisitos: Java 21, Maven 3.9+ y PostgreSQL (o Docker).
 1. **Variables de entorno.** Copia `.env.example` a `.env` y ajusta los valores. La aplicación lee:
 
     | Variable | Descripción | Valor por defecto |
-    |---|---|---|
+    | --- | --- | --- |
     | `SPRING_DATASOURCE_URL` | URL JDBC de PostgreSQL | `jdbc:postgresql://localhost:5432/campuscloud` |
     | `SPRING_DATASOURCE_USERNAME` | Usuario de la base de datos | (obligatoria) |
     | `SPRING_DATASOURCE_PASSWORD` | Contraseña de la base de datos | (obligatoria) |
