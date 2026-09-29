@@ -42,7 +42,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/profesor/**").hasRole("Profesor")
                         .requestMatchers("/estudiante/**").hasRole("Estudiante")
-                        .requestMatchers("/admin/**").hasRole("Admin")
+                        .requestMatchers("/admin/**", "/dashboard_admin").hasRole("Admin")
+                        .requestMatchers("/dashboard_estudiante").hasRole("Estudiante")
                         .requestMatchers("/login", "/css/**", "/js/**", "/images/**", "/prueba/**").permitAll()
                         .requestMatchers("/api/cursos/**").permitAll()
                         .requestMatchers("/api/eventos/**").permitAll()

@@ -1,10 +1,10 @@
-# 🌩️ CampusCloud
+# CampusCloud
 
 **CampusCloud** es una plataforma web para la gestión académica universitaria, desarrollada con **Java 21**, **Spring Boot 3**, **Spring Security** y **PostgreSQL** en un proyecto Maven. Su objetivo es facilitar la administración de cursos, usuarios, tareas, calificaciones y otros procesos críticos en la Universidad de Medellín, con especial foco en mejorar la experiencia del docente.
 
 ---
 
-## 📘 Introducción
+## Introducción
 
 En la Universidad de Medellín, el sistema basado en Moodle ha cumplido su función, pero presenta fallas que afectan principalmente al rol del docente:
 
@@ -18,13 +18,13 @@ En la Universidad de Medellín, el sistema basado en Moodle ha cumplido su funci
 
 1. Integra un **login con reCAPTCHA menos invasivo** y control de roles (Admin, Profesor, Estudiante).
 2. Ofrece un **dashboard docente** donde se visualiza en un solo lugar el resumen de cursos, tareas, eventos, calificaciones y asistencias.
-3. Automatiza la **toma de asistencia** y la **gestión de calificaciones** (con exportación a Excel).
+3. Automatiza la **toma de asistencia** y la **gestión de calificaciones**.
 4. Incluye un **calendario académico** con eventos personalizables y notificaciones por correo.
 5. Permite a los desarrolladores y administradores extraer reportes de manera centralizada y confiable.
 
 ---
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```plaintext
 CampusCloud/
@@ -32,43 +32,35 @@ CampusCloud/
 │   ├── main/
 │   │   ├── java/
 │   │   │   └── CampusCloud/
-│   │   │       ├── config/        # Configuración y beans de Spring (SecurityConfig, AppConfig, etc.)
-│   │   │       ├── controller/    # Controladores REST y MVC (AdminController, AuthController, CourseController, EstudianteController, ProfesorController, ProfesorRestController, RoleController, UserEventsRestController, DashboardController)
-│   │   │       ├── model/         # Entidades JPA (User, Role, Course, AcademicEvent, Attendance)
-│   │   │       ├── repository/    # Repositorios Spring Data JPA (UserRepository, RoleRepository, CourseRepository, etc.)
-│   │   │       ├── security/      # Configuración y utilidades de seguridad (CustomUserDetails, RecaptchaFilter)
-│   │   │       └── service/       # Lógica de negocio y servicios (AuthService, UserService, RoleService, CourseService, GmailSender, GmailServiceFactory)
+│   │   │       ├── config/        # Configuración de Spring Security (SecurityConfig)
+│   │   │       ├── controller/    # Controladores MVC y REST (Admin, Auth, Course, Dashboard, Estudiante, Profesor, ProfesorRest, Role, UserEventsRest)
+│   │   │       ├── model/         # Entidades JPA (User, Role, Course, AcademicEvent, Attendance, UserEvent)
+│   │   │       ├── repository/    # Repositorios Spring Data JPA
+│   │   │       ├── security/      # CustomUserDetails y RecaptchaFilter
+│   │   │       └── service/       # Lógica de negocio (Auth, User, Role, Course) y envío de correo (email/)
 │   │   └── resources/
-│   │       ├── db/
-│   │       │   └── init/          # Scripts SQL de inicialización (init.sql)
-│   │       ├── static/
-│   │       │   ├── css/           # Hojas de estilo (sidebar.css, login.css, dashboard.css)
-│   │       │   ├── images/        # Recursos gráficos (logo, íconos)
-│   │       │   └── js/            # Scripts JavaScript (login.js, calendar.js, sidebar.js)
-│   │       └── templates/
-│   │           └── Profesor/      # Vistas Thymeleaf del panel docente (dashboard_layout.html, cursos.html, eventos.html, calificaciones.html, asistencia.html, sidebar fragment, etc.)
-│   └── test/
-│       └── java/
-│           └── CampusCloud/      # Pruebas unitarias e integración (AuthServiceTest, CourseServiceTest, SecurityTest, etc.)
-├── target/                       # Artifacts compilados
-├── .mvn/                         # Maven Wrapper
-├── pom.xml                       # Configuración de Maven
-├── Dockerfile                    # Imagen Docker para el backend
-├── docker-compose.yaml           # Para levantar servicio local con base de datos
-├── k8s/                          # Manifiestos de Kubernetes (deployment.yaml, service.yaml, ingress.yaml, configmap.yaml)
-├── .gitignore
-├── README.md                     # (Este archivo)
-└── mvnw, mvnw.cmd                # Maven Wrapper scripts
+│   │       ├── db/init/           # Script SQL de inicialización (init.sql)
+│   │       ├── static/            # CSS, JavaScript e imágenes
+│   │       ├── templates/         # Vistas Thymeleaf (login, dashboards y panel Profesor/)
+│   │       ├── application.properties
+│   │       └── logback-spring.xml
+│   └── test/java/CampusCloud/     # Prueba de carga del contexto de Spring
+├── k8s/                           # Manifiestos de Kubernetes (deployment.yaml, service.yaml)
+├── Dockerfile                     # Build multi-etapa (Maven + JRE 21)
+├── docker-compose.yaml            # PostgreSQL + ELK para entorno local
+├── logstash.conf                  # Configuración de Logstash
+├── .env.example                   # Plantilla de variables de entorno
+└── pom.xml                        # Configuración de Maven
 ```
 
 ---
 
-## ⚙️ Tecnologías y Dependencias
+## Tecnologías y Dependencias
 
 **Lenguaje y Build:**
 
 - Java 21
-- Maven + Maven Wrapper (mvnw, mvnw.cmd)
+- Maven 3.9+
 
 **Backend:**
 
@@ -76,7 +68,6 @@ CampusCloud/
 - Spring Security
 - Spring Data JPA
 - Spring Boot Starters (Web, Thymeleaf, Validation, Quartz, OAuth2 Resource Server, Mail, Actuator, Data JPA, OAuth2 Client, OAuth2 Authorization Server)
-- Flyway (migraciones de base de datos)
 - Swagger / Springdoc OpenAPI (documentación API)
 - BCrypt (hash de contraseñas)
 - Jakarta Mail (envío de correos)
@@ -86,8 +77,8 @@ CampusCloud/
 
 **Base de Datos:**
 
-- PostgreSQL (Neon.tech, driver JDBC)
-- Flyway (migraciones SQL)
+- PostgreSQL (Neon en producción, driver JDBC)
+- Esquema inicial con `db/init/init.sql` (Flyway está desactivado)
 
 **Frontend:**
 
@@ -100,7 +91,6 @@ CampusCloud/
 **Integraciones y APIs:**
 
 - Google API Client
-- Google Gmail API
 - Google OAuth Client
 
 **Contenedores y Orquestación:**
@@ -110,6 +100,7 @@ CampusCloud/
 - Kubernetes (manifiestos en k8s/)
 - Minikube (entorno local Kubernetes)
 - Docker Hub (registro de imágenes)
+- Render (hosting en producción)
 
 **Control de Versiones y CI/CD:**
 
@@ -124,47 +115,42 @@ CampusCloud/
 
 ---
 
-## 🚀 Puesta en Marcha
+## Puesta en Marcha (local)
 
-1. **Configura la base de datos** en `src/main/resources/application.properties`:
+Requisitos: Java 21, Maven 3.9+ y PostgreSQL (o Docker).
 
-    ```properties
-    spring.datasource.url=jdbc:postgresql://<host>:5432/<db>?sslmode=require
-    spring.datasource.username=<user>
-    spring.datasource.password=<pass>
-    spring.jpa.hibernate.ddl-auto=validate
-    spring.flyway.enabled=true
-    spring.flyway.locations=classpath:db/init
-    ```
+1. **Variables de entorno.** Copia `.env.example` a `.env` y ajusta los valores. La aplicación lee:
 
-2. **Inicializa el esquema automático** con Flyway o asegúrate que `src/main/resources/db/init/init.sql` exista.
+    | Variable | Descripción | Valor por defecto |
+    |---|---|---|
+    | `SPRING_DATASOURCE_URL` | URL JDBC de PostgreSQL | `jdbc:postgresql://localhost:5432/campuscloud` |
+    | `SPRING_DATASOURCE_USERNAME` | Usuario de la base de datos | (obligatoria) |
+    | `SPRING_DATASOURCE_PASSWORD` | Contraseña de la base de datos | (obligatoria) |
+    | `RECAPTCHA_SECRET` | Clave secreta de Google reCAPTCHA v2 | (vacío) |
+    | `PORT` | Puerto HTTP | `8080` |
 
-3. **Construye e instala** el proyecto:
-
-    ```bash
-    ./mvnw clean install
-    ```
-
-4. **Ejecuta** la aplicación:
+2. **Base de datos.** Levanta PostgreSQL con Docker Compose (ejecuta `init.sql` automáticamente):
 
     ```bash
-    ./mvnw spring-boot:run
+    docker compose up -d db
     ```
 
-    O bien, genera el JAR y corre:
+    Si usas otra instancia, ejecuta manualmente `src/main/resources/db/init/init.sql`.
+
+3. **Ejecuta** la aplicación:
 
     ```bash
-    ./mvnw clean package
+    mvn spring-boot:run
+    ```
+
+    O genera el JAR y córrelo:
+
+    ```bash
+    mvn clean package
     java -jar target/CampusCloud-0.0.1-SNAPSHOT.jar
     ```
 
-5. **(Opcional) Levanta con Docker Compose:**
-
-    ```bash
-    docker-compose up --build
-    ```
-
-6. **(Opcional) Despliega en Minikube:**
+4. **(Opcional) Kubernetes con Minikube:**
 
     ```bash
     minikube start
@@ -173,7 +159,26 @@ CampusCloud/
 
 ---
 
-## 🎯 Funcionalidades Destacadas
+## Despliegue en producción (Render + Neon)
+
+1. **Neon:** crea un proyecto PostgreSQL y ejecuta `src/main/resources/db/init/init.sql` en el SQL Editor.
+2. **Render:** crea un *Web Service* conectado a este repositorio con runtime **Docker** (usa el `Dockerfile` de la raíz).
+3. Configura las variables de entorno en Render:
+
+    ```properties
+    SPRING_DATASOURCE_URL=jdbc:postgresql://<host-neon>/<db>?sslmode=require
+    SPRING_DATASOURCE_USERNAME=<usuario-neon>
+    SPRING_DATASOURCE_PASSWORD=<password-neon>
+    RECAPTCHA_SECRET=<clave-secreta-recaptcha>
+    ```
+
+4. Agrega el dominio `*.onrender.com` a los dominios permitidos de la clave de reCAPTCHA en la consola de Google.
+
+Render asigna el puerto mediante la variable `PORT`, que la aplicación ya respeta.
+
+---
+
+## Funcionalidades Destacadas
 
 ### Login y roles
 
@@ -207,7 +212,7 @@ CampusCloud/
 
 ---
 
-## 🔗 Conclusiones
+## Conclusiones
 
 1. CampusCloud unifica y mejora la experiencia del docente, centralizando gestión de cursos, eventos, calificaciones y asistencia en un solo lugar.
 2. Docker y Minikube facilitaron el despliegue local, simulando entornos de producción y garantizando portabilidad.
@@ -215,7 +220,7 @@ CampusCloud/
 
 ---
 
-## 🔒 Licencia y Uso
+## Licencia y Uso
 
 Queda estrictamente prohibida la copia, distribución, modificación o uso comercial de este proyecto sin autorización previa y por escrito.
 

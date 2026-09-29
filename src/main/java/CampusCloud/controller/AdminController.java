@@ -10,6 +10,7 @@ public class AdminController {
     @GetMapping("/dashboard_admin")
     public String adminDashboard(Model model) {
         model.addAttribute("rol", "Administrador");
-        return "dashboard_admin";
+        model.addAttribute("nombreUsuario", "Administrador");
+        return "dashboard";
     }
 }

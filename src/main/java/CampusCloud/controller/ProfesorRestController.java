@@ -50,7 +50,7 @@ public class ProfesorRestController {
         }
         data.put("nombre", user.getFirstName() + " " + user.getLastName());
         String roles = user.getRoles().stream()
-                .map(Role::getName)
+                .map(role -> role.getName())
                 .collect(Collectors.joining(", "));
         data.put("rol", roles);
         return data;
